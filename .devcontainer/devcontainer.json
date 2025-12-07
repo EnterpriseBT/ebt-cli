@@ -1,0 +1,12 @@
+{
+    "name": "Bash Environment",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "features": {},
+    "customizations": {},
+    "remoteUser": "root",
+    "remoteEnv": {
+        "SHELL": "/bin/bash"
+    }
+}
