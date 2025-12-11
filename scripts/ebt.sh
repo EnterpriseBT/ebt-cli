@@ -23,7 +23,7 @@ show_help() {
     echo "Usage: ebt-cli <command>"
     echo ""
     echo "Available commands:"
-    echo "  create-branch    Create a new git branch interactively"
+    echo "  branch    Create a new git branch interactively"
     echo "  commit           Create a git commit interactively"
     echo "  help             Show help message"
     echo ""
@@ -31,8 +31,8 @@ show_help() {
 
 # Main command dispatcher
 case "$1" in
-    create-branch)
-        bash "$SCRIPT_DIR/create-branch.sh"
+    branch)
+        bash "$SCRIPT_DIR/branch.sh"
         ;;
     commit)
         bash "$SCRIPT_DIR/commit.sh"

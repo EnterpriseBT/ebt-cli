@@ -1,8 +1,16 @@
 FROM ubuntu:latest
 
-# Install bash, git, and bash-completion for autocompletion
+# Install bash, git, bash-completion, and vendor CLI dependencies
 RUN apt-get update && \
-    apt-get install -y bash git bash-completion && \
+    apt-get install -y \
+        bash \
+        git \
+        bash-completion \
+        curl \
+        unzip \
+        gpg \
+        apt-transport-https \
+        ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
