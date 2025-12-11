@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Source git prompt configuration
 cat >> /root/.bashrc << 'EOF'
