@@ -41,7 +41,7 @@ jobs:
 
       - name: Validate branch name
         id: validate
-        uses: ../actions/validate-branch
+        uses: ./.github/actions/validate-branch
 
       - name: Docker meta
         id: meta
