@@ -45,6 +45,7 @@ jobs:
 
       - name: Docker meta
         id: meta
+        if: success()
         uses: docker/metadata-action@v5
         with:
           images: |
@@ -56,12 +57,16 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
 
       - name: Login to DockerHub
+        if: success()
+        id: login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
+        id: build_push
+        if: success()
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -86,16 +91,17 @@ jobs:
       #     additional_tags: ${{ steps.version.outputs.additional_tags }}
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Output summary
-      #   id: output_summary
-      #   if: success()
-      #   uses: EnterpriseBT/ebt-docker-build-workflow/.github/actions/output-summary@main
-      #   with:
-      #     branch_name: ${{ steps.validate.outputs.branch_name }}
-      #     branch_type: ${{ steps.validate.outputs.branch_type }}
-      #     version: ${{ steps.version.outputs.version }}
-      #     docker_tag: ${{ steps.version.outputs.docker_tag }}
-      #     registry: ${{ inputs.registry }}
-      #     image_name: ${{ inputs.image_name }}
-      #     additional_tags: ${{ steps.version.outputs.additional_tags }}
-      #     release_url: ${{ steps.github_release.outputs.release_url }}
+      - name: Output summary
+        id: output_summary
+        if: success()
+        uses: ./.github/actions/output-summary
+        with:
+          branch_name: ${{ steps.validate.outputs.branch_name }}
+          branch_type: ${{ steps.validate.outputs.branch_type }}
+          # version: ${{ steps.version.outputs.version }}
+          image: ${{ steps.build_push.outputs.image }}
+          metadata: ${{ steps.meta.outputs.metadata }}
+          # registry: ${{ inputs.registry }}
+          # image_name: ${{ inputs.image_name }}
+          # additional_tags: ${{ steps.version.outputs.additional_tags }}
+          # release_url: ${{ steps.github_release.outputs.release_url }}

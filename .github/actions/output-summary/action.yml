@@ -40,8 +40,8 @@ runs:
         echo "- **Branch:** ${{ inputs.branch_name }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Branch Type:** ${{ inputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Version:** ${{ inputs.version }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Docker Tag:** ${{ inputs.docker_tag }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Image:** \`${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.docker_tag }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Docker Image:** ${{ inputs.image }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Metadata:** ${{ inputs.metadata }}" >> $GITHUB_STEP_SUMMARY
 
         if [ -n "${{ inputs.additional_tags }}" ]; then
           echo "- **Additional Tags:** ${{ inputs.additional_tags }}" >> $GITHUB_STEP_SUMMARY
@@ -54,8 +54,5 @@ runs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Image pushed successfully! :rocket:" >> $GITHUB_STEP_SUMMARY
 
-        echo "registry=${{ inputs.registry }}" >> $GITHUB_OUTPUT
-        echo "image_name=${{ inputs.image_name }}" >> $GITHUB_OUTPUT
-        echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
-        echo "docker_tag=${{ inputs.docker_tag }}" >> $GITHUB_OUTPUT
-        echo "docker_image=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.docker_tag }}" >> $GITHUB_OUTPUT
+        echo "image=${{ inputs.image }}" >> $GITHUB_OUTPUT
+        echo "metadata=${{ inputs.metadata }}" >> $GITHUB_OUTPUT
