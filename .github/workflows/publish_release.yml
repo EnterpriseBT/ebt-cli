@@ -23,9 +23,6 @@ on:
       - "performance/**"
       - "refactor/**"
   workflow_dispatch:
-env:
-  DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
-  DOCKER_IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME }}
 jobs:
   publish-release:
     if: |
@@ -57,7 +54,6 @@ jobs:
         with:
           tag: ${{ steps.version.outputs.tag }}
           message: ${{ steps.version.outputs.message }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Create GitHub release
         id: github_release
