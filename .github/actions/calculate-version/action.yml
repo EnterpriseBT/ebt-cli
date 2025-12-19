@@ -14,15 +14,12 @@ outputs:
   version:
     description: 'New semantic version (e.g., 2.3.1)'
     value: ${{ steps.version.outputs.version }}
-  docker_tag:
-    description: 'Docker tag to use (e.g., 2.3.1, 2.3.1-rc.1, ticket-2.3.1.dev)'
-    value: ${{ steps.version.outputs.docker_tag }}
   additional_tags:
     description: 'Additional tags to apply (e.g., latest, staging)'
     value: ${{ steps.version.outputs.additional_tags }}
-  git_tag:
-    description: 'Git tag to create (e.g., v2.3.1)'
-    value: ${{ steps.version.outputs.git_tag }}
+  tag:
+    description: 'Tag label to create (e.g., v2.3.1)'
+    value: ${{ steps.version.outputs.tag }}
 
 runs:
   using: 'composite'
