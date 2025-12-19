@@ -3,7 +3,7 @@ description: 'Calculates new version based on git tags and conventional commits'
 
 inputs:
   branch_type:
-    description: 'Type of branch (release or development)'
+    description: 'Type of branch (release, candidate or development)'
     required: true
   ticket:
     description: 'Ticket identifier from branch name'
@@ -28,8 +28,14 @@ runs:
       id: get_version
       shell: bash
       run: |
-        # Get the latest semantic version tag
-        LATEST_TAG=$(git tag -l 'v*.*.*' --sort=-v:refname | head -n 1)
+        # Get the latest semantic version tag based on branch type and environment
+        if [[ "$BRANCH_TYPE" == "release" ]]; then
+          LATEST_TAG=$(git tag -l 'release-v*.*.*' --sort=-v:refname | head -n 1)
+        elif [[ "$BRANCH_TYPE" == "candidate" ]]; then
+          LATEST_TAG=$(git tag -l 'rc-v*.*.*' --sort=-v:refname | head -n 1)
+        else
+          LATEST_TAG=$(git tag -l 'v*.*.*' --sort=-v:refname | head -n 1)
+        fi
 
         if [ -z "$LATEST_TAG" ]; then
           echo "No existing version tags found, starting from v0.0.0"
@@ -87,7 +93,7 @@ runs:
         elif [[ "$BRANCH_NAME" == "staging" ]]; then
           # Staging branch: release candidate (e.g., rc-v2.3.1)
           TAG="rc-v${NEW_VERSION}"
-          ADDITIONAL_TAGS="staging"
+          ADDITIONAL_TAGS="candidate"
         else
           # Development branches: prefix ticket to tag (e.g., PROJ-123-v2.3.1)
           TAG="${TICKET}-v${NEW_VERSION}"

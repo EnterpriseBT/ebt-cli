@@ -30,9 +30,13 @@ runs:
         # - staging
         # - [prefix]/[ticket]/[label] where prefix is: feature, patch, ci, doc, performance, refactor
 
-        if [[ "$BRANCH_NAME" == "main" ]] || [[ "$BRANCH_NAME" == "staging" ]]; then
+        if [[ "$BRANCH_NAME" == "main" ]]; then
           echo "Valid branch: $BRANCH_NAME"
           echo "branch_type=release" >> $GITHUB_OUTPUT
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+        elif [[ "$BRANCH_NAME" == "candidate" ]]; then
+          echo "Valid branch: $BRANCH_NAME"
+          echo "branch_type=candidate" >> $GITHUB_OUTPUT
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
         elif [[ "$BRANCH_NAME" =~ ^(feature|patch|ci|doc|performance|refactor)/[^/]+/[^/]+$ ]]; then
           echo "Valid branch: $BRANCH_NAME"
