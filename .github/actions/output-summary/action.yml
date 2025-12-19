@@ -14,8 +14,8 @@ inputs:
   registry:
     description: "Docker registry/organization"
     required: true
-  image:
-    description: "Docker image"
+  image_id:
+    description: "Docker image ID"
     required: true
   metadata:
     description: "Docker image metadata"
@@ -35,7 +35,7 @@ runs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Branch:** ${{ inputs.branch_name }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Branch Type:** ${{ inputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Docker Image:** ${{ inputs.image }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Docker Image:** ${{ inputs.image_id }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Metadata:** ${{ inputs.metadata }}" >> $GITHUB_STEP_SUMMARY
 
         if [ -n "${{ inputs.additional_tags }}" ]; then
@@ -49,5 +49,5 @@ runs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Image pushed successfully! :rocket:" >> $GITHUB_STEP_SUMMARY
 
-        echo "image=${{ inputs.image }}" >> $GITHUB_OUTPUT
+        echo "image=${{ inputs.image_id }}" >> $GITHUB_OUTPUT
         echo "metadata=${{ inputs.metadata }}" >> $GITHUB_OUTPUT

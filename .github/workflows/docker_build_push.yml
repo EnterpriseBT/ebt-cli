@@ -99,8 +99,8 @@ jobs:
           branch_name: ${{ steps.validate.outputs.branch_name }}
           branch_type: ${{ steps.validate.outputs.branch_type }}
           # version: ${{ steps.version.outputs.version }}
-          image: ${{ steps.build_push.outputs.image }}
-          metadata: ${{ steps.meta.outputs.metadata }}
+          image_id: ${{ steps.build_push.outputs.imageid }}
+          metadata: ${{ steps.build_push.outputs.metadata }}
           # registry: ${{ inputs.registry }}
           # image_name: ${{ inputs.image_name }}
           # additional_tags: ${{ steps.version.outputs.additional_tags }}
