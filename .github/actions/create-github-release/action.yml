@@ -5,16 +5,6 @@ inputs:
   tag:
     description: "Tag label for the release (e.g., v2.3.1)"
     required: true
-  registry:
-    description: "Docker registry/organization"
-    required: true
-  image_name:
-    description: "Docker image name"
-    required: true
-  additional_tags:
-    description: "Additional tags applied"
-    required: false
-    default: ""
   github_token:
     description: "GitHub token for creating releases"
     required: true
@@ -32,27 +22,6 @@ runs:
       shell: bash
       run: |
         TAG="${{ inputs.tag }}"
-        REGISTRY="${{ inputs.registry }}"
-        IMAGE_NAME="${{ inputs.image_name }}"
-        ADDITIONAL_TAGS="${{ inputs.additional_tags }}"
-
-        # Build release notes
-        RELEASE_NOTES="## Docker Image
-
-        **Image:** \`${REGISTRY}/${IMAGE_NAME}:${TAG}\`
-
-        ### Pull Command
-        \`\`\`bash
-        docker pull ${REGISTRY}/${IMAGE_NAME}:${TAG}
-        \`\`\`
-        "
-                if [ -n "$ADDITIONAL_TAGS" ]; then
-                  RELEASE_NOTES="${RELEASE_NOTES}
-
-        ### Additional Tags
-        ${ADDITIONAL_TAGS}
-        "
-        fi
 
         # Create release using GitHub CLI
         RELEASE_URL=$(gh release create "$TAG" \

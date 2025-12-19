@@ -50,7 +50,6 @@ jobs:
           branch_type: ${{ steps.validate.outputs.branch_type }}
           ticket: ${{ steps.validate.outputs.ticket }}
 
-
       - name: Create Git tag
         id: git_tag
         if: success()
@@ -66,7 +65,4 @@ jobs:
         uses: ./.github/actions/create-github-release
         with:
           tag: ${{ steps.version.outputs.tag }}
-          additional_tags: ${{ steps.version.outputs.additional_tags }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          registry: ${{ env.DOCKER_REGISTRY }}
-          image_name: ${{ env.DOCKER_IMAGE_NAME }}
