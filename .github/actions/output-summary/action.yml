@@ -8,8 +8,8 @@ inputs:
   branch_type:
     description: "Type of branch (release or development)"
     required: true
-  docker_tag:
-    description: "Docker tag used"
+  tag:
+    description: "Tag label used in GitHub release and Docker image"
     required: true
   registry:
     description: "Docker registry/organization"
@@ -35,6 +35,7 @@ runs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Branch:** \`${{ inputs.branch_name }}\`" >> $GITHUB_STEP_SUMMARY
         echo "- **Branch Type:** \`${{ inputs.branch_type }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Tag:** \`${{ inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
         echo "- **Release URL:** \`${{ inputs.release_url }}\`" >> $GITHUB_STEP_SUMMARY
         echo "- **Docker Image ID:** \`${{ inputs.image_id }}\`" >> $GITHUB_STEP_SUMMARY
         # Format metadata as indented JSON
