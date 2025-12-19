@@ -19,7 +19,7 @@ jobs:
 
       - name: Docker metadata
         id: meta
-        if: success()I
+        if: success()
         uses: docker/metadata-action@v5
         with:
           images: |
