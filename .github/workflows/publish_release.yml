@@ -27,7 +27,7 @@ env:
   DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
   DOCKER_IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME }}
 jobs:
-  dockerhub-push:
+  publish-release:
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'push' ||
@@ -50,37 +50,10 @@ jobs:
           branch_type: ${{ steps.validate.outputs.branch_type }}
           ticket: ${{ steps.validate.outputs.ticket }}
 
-      - name: Docker metadata
-        id: meta
-        if: success()
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
-          tags: |
-            ${{ steps.version.outputs.tag }}
-            ${{ steps.version.outputs.additional_tags }}
 
-      - name: Login to DockerHub
-        if: success()
-        id: login
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push
-        id: build_push
-        if: success()
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-      
       - name: Create Git tag
         id: git_tag
-        if: success() && steps.validate.outputs.branch_type == 'release'
+        if: success()
         uses: ./.github/actions/create-git-tag
         with:
           tag: ${{ steps.version.outputs.tag }}
@@ -97,15 +70,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.DOCKER_REGISTRY }}
           image_name: ${{ env.DOCKER_IMAGE_NAME }}
-
-      - name: Output summary
-        id: output_summary
-        if: success()
-        uses: ./.github/actions/output-summary
-        with:
-          tag: ${{ steps.version.outputs.tag }}
-          branch_name: ${{ steps.validate.outputs.branch_name }}
-          branch_type: ${{ steps.validate.outputs.branch_type }}
-          image_id: ${{ steps.build_push.outputs.imageid }}
-          metadata: ${{ steps.build_push.outputs.metadata }}
-          release_url: ${{ steps.github_release.outputs.url }}
