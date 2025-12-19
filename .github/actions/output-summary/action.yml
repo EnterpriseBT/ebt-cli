@@ -33,9 +33,14 @@ runs:
       run: |
         echo "## Job Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Branch:** ${{ inputs.branch_name }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Branch Type:** ${{ inputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Docker Image:** ${{ inputs.image_id }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Metadata:** \`\`\`${{ inputs.metadata }}\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch:** \`${{ inputs.branch_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch Type:** \`${{ inputs.branch_type }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Docker Image ID:** \`${{ inputs.image_id }}\`" >> $GITHUB_STEP_SUMMARY
+        # Format metadata as indented JSON
+        METADATA_JSON="$(echo '${{ inputs.metadata }}' | jq .)"
+        echo "- **Metadata:**" >> $GITHUB_STEP_SUMMARY
+        echo '```json' >> $GITHUB_STEP_SUMMARY
+        echo "$METADATA_JSON" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Image pushed successfully! :rocket:" >> $GITHUB_STEP_SUMMARY
