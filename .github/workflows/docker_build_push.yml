@@ -104,7 +104,6 @@ jobs:
         uses: ./.github/actions/output-summary
         with:
           tag: ${{ steps.version.outputs.tag }}
-          additional_tags: ${{ steps.version.outputs.additional_tags }}
           branch_name: ${{ steps.validate.outputs.branch_name }}
           branch_type: ${{ steps.validate.outputs.branch_type }}
           image_id: ${{ steps.build_push.outputs.imageid }}
