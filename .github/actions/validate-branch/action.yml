@@ -8,9 +8,6 @@ outputs:
   branch_type:
     description: 'Type of branch (release or development)'
     value: ${{ steps.validate.outputs.branch_type }}
-  branch_name:
-    description: 'Full branch name'
-    value: ${{ steps.validate.outputs.branch_name }}
 
 runs:
   using: 'composite'

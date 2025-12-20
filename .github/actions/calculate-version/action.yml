@@ -46,8 +46,15 @@ runs:
         fi
         echo "Latest tag: $LATEST_TAG"
 
-        # Extract version numbers
-        VERSION=${LATEST_TAG#v}
+        # Extract the part matching v*.*.* (e.g. v1.2.3) from anywhere in the tag
+        VERSION_PART=$(echo "$LATEST_TAG" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+')
+        if [ -z "$VERSION_PART" ]; then
+          echo "Could not extract semantic version from tag: $LATEST_TAG"
+          exit 1
+        fi
+
+        # Remove the 'v' and split into major, minor, patch
+        VERSION="${VERSION_PART#v}"
         IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
         echo "current_major=$MAJOR" >> $GITHUB_OUTPUT

@@ -10,6 +10,11 @@ inputs:
     required: false
     default: ''
 
+outputs:
+  tag:
+    description: 'Git tag label created'
+    value: $GIT_TAG
+
 runs:
   using: 'composite'
   steps:
@@ -31,3 +36,5 @@ runs:
         git push origin "$GIT_TAG"
 
         echo "Created and pushed git tag: $GIT_TAG"
+
+        echo "tag=$GIT_TAG" >> $GITHUB_OUTPUT
