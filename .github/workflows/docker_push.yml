@@ -8,10 +8,10 @@ on:
         required: true
         type: string
     secrets:
-    DOCKERHUB_USERNAME:
-      required: true
-    DOCKERHUB_TOKEN:
-      required: true
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
 
 env:
   DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
