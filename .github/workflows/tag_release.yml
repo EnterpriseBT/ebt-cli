@@ -79,4 +79,6 @@ jobs:
     uses: ./.github/workflows/docker_push.yml
     with:
       tag: ${{ needs.publish-release.outputs.tag }}
-      secrets: inherit
+      secrets: |
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
