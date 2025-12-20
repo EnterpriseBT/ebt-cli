@@ -25,6 +25,7 @@ on:
   workflow_dispatch:
 jobs:
   publish-release:
+    name: Publish Release
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'push' ||
