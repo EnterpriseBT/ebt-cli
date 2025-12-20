@@ -13,12 +13,13 @@ inputs:
 outputs:
   tag:
     description: 'Git tag label created'
-    value: $GIT_TAG
+    value: ${{ steps.create_git_tag.outputs.tag }}
 
 runs:
   using: 'composite'
   steps:
     - name: Create and push git tag
+      id: create_git_tag
       shell: bash
       run: |
         GIT_TAG="${{ inputs.tag }}"
