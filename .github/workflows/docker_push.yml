@@ -1,9 +1,8 @@
 name: Build and Deploy Docker Image
 
 on:
-  workflow_run:
-    workflows: ["Create Tag and Release"]
-    types: [completed]
+  workflow_call:
+
 env:
   DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
   DOCKER_IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME }}

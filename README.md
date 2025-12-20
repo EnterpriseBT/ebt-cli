@@ -28,7 +28,6 @@ ebt <command>
 
 - `ebt branch` - Interactively create a new git branch with enforced naming conventions
 - `ebt commit` - Interactively create a git commit with enforced formatting standards
-- `ebt workflow` - Generate a Github Actions workflow template for deploying docker images
 - `ebt help` - Display help information
 
 ## Example Usage

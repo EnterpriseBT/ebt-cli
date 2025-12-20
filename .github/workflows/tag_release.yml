@@ -70,3 +70,8 @@ jobs:
           echo "- **Branch Type:** \`${{ steps.validate.outputs.branch_type }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Tag:** \`${{ steps.git_tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Release URL:** \`${{ steps.github_release.outputs.url }}\`" >> $GITHUB_STEP_SUMMARY
+  docker_push:
+    name: Docker Push
+    needs: publish-release
+    if: ${{ needs.publish-release.result == 'success' }}
+    uses: ./.github/workflows/docker_push.yml
