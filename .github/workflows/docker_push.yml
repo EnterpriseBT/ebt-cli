@@ -4,9 +4,14 @@ on:
   workflow_call:
     inputs:
       tag:
-        description: 'Git tag to push'
+        description: "Git tag to push"
         required: true
         type: string
+    secrets:
+    DOCKERHUB_USERNAME:
+      required: true
+    DOCKERHUB_TOKEN:
+      required: true
 
 env:
   DOCKER_REGISTRY: ${{ vars.DOCKER_REGISTRY }}
