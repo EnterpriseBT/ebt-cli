@@ -25,7 +25,7 @@ on:
   workflow_dispatch:
 jobs:
   create-tag-publish-release:
-    name: Create Tag and PublishRelease
+    name: Create Tag and Publish Release
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'push' ||

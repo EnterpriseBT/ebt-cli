@@ -77,7 +77,7 @@ jobs:
   trigger-docker-push:
     name: Docker Push
     needs: create-tag-publish-release
-    uses: ./.github/workflows/docker_push.yml
+    uses: ./.github/workflows/docker_push.workflow.yml
     with:
       tag: ${{ needs.create-tag-publish-release.outputs.tag }}
     secrets:
