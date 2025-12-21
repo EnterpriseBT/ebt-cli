@@ -23,14 +23,16 @@ if [ ! -d "$dest_folder/workflows" ]; then
   mkdir -p "$dest_folder/workflows"
 fi
 
-# Copy *.action.template.yml files to actions, removing .template. in destination filenames
+# Copy each *.action.template.yml file to its own folder as 'action.yml'
 template_src="/usr/local/bin/ebt-toolkit/assets/templates/github"
 if compgen -G "$template_src/*.action.template.yml" > /dev/null; then
-  echo "Copying *.action.template.yml files to $dest_folder/actions (removing .template.)"
+  echo "Copying *.action.template.yml files to $dest_folder/actions/<name>/action.yml"
   for srcfile in "$template_src"/*.action.template.yml; do
     filename=$(basename "$srcfile")
-    destfile="${filename/.template./.}"
-    cp "$srcfile" "$dest_folder/actions/$destfile"
+    action_name="${filename%%.*}" # Gets the substring before the first '.'
+    action_folder="$dest_folder/actions/$action_name"
+    mkdir -p "$action_folder"
+    cp "$srcfile" "$action_folder/action.yml"
   done
 else
   echo "No *.action.template.yml files found in $template_src"

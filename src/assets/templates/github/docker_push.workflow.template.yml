@@ -25,6 +25,12 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for proper version calculation
 
+      - name: Create .env file
+        if: success()
+        # Add variables as needed
+        run: |
+          echo "NODE_ENV=production" >> .env 
+
       - name: Docker metadata
         id: meta
         if: success()
